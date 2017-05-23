@@ -38,9 +38,9 @@ ul {
 li {
   padding: 1em;
   margin: 8px 0;
-  background: #eee;
-  color: #333;
-  border-radius: 6px;
+  background: #F4F4F4;
+  color: #0E0E3E;
+  box-shadow: inset 0 -2px #E4E4E4;
 }
 .add {
   text-align: center;
