@@ -61,6 +61,7 @@ input[type=text] {
   border: none;
   box-shadow: inset 0 -2px #FF83C5;
   transition: .2s;
+  animation: 2s forwards fade-in;
 }
 
 input[type=text]:focus::-webkit-input-placeholder {
