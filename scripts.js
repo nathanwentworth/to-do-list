@@ -64,7 +64,8 @@ function displayList() {
     listNode.appendChild(closeNode);
 
     // inserts the new todo item at the top of the list
-    listElem.insertBefore(listNode, listElem.firstChild);
+    listElem.appendChild(listNode);
+    // listElem.insertBefore(listNode, listElem.firstChild);
   }
 }
 
@@ -81,23 +82,41 @@ function addToDoItem(event) {
   save();
 }
 
-console.log("13 % 13 " + 13 % 13);
-console.log("0 % 13 " + 0 % 13);
-console.log("1 % 13 " + 1 % 13);
-console.log("12 % 13 " + 12 % 13);
-
 // remove elements from the list
 function removeToDoItem(event) {
-  var value = event.target.innerText;
-  var index = list.indexOf(value);
+  var e = findParentElem(event.target);
+  var value = e.innerText.trim();
+  var index = -1;
+
+  for (var i = 0; i < list.length; i++) {
+    if (list[i].valueOf() == value.valueOf()) {
+      index = i;
+      break;
+    }
+  }
 
   if (index > -1) {
-    array.splice(index, 1);
+    list.splice(index, 1);
   }
 
   save();
   load();
   displayList();
+}
+
+function findParentElem(elem) {
+  var elem;
+  if (elem.nodeName != 'LI') {
+    var parent = elem.parentElement;
+    if (parent !== null) {
+      elem = parent;
+      return findParentElem(elem);
+    } else {
+      console.log("couldn't find an LI parent!");
+    }
+  } else {
+    return elem;
+  }
 }
 
 // displays the close 'x' on hover
@@ -107,7 +126,7 @@ function displayCloseButton(event) {
 }
 
 
-
+// old code!!!!!!!!
 
 
 // $(document).ready(function($) {
