@@ -13,7 +13,7 @@ function init() {
   addField.addEventListener('keyup', addToDoItem);
 
   load();
-  displayList();
+  displayList(true);
 }
 
 // load localstorage data
@@ -41,7 +41,7 @@ function save() {
 }
 
 // write list
-function displayList() {
+function displayList(initialLoad) {
   // first remove all child nodes
   while (listElem.hasChildNodes()) {
     listElem.removeChild(listElem.lastChild);
@@ -51,12 +51,15 @@ function displayList() {
   for (var i = 0; i < list.length; i++) {
     // create the initial list node, top level parent
     var listNode = document.createElement('li');
-    listNode.style.animationDelay = 0.1 * i + "s";
+    if (initialLoad) {
+      listNode.style.animation = '1s forwards slide-down, 1s forwards fade-in';
+      listNode.style.opacity = '0';
+      listNode.style.transform = 'translateY(-16px)';
+      listNode.style.animationDelay = 0.1 * i + "s";
+    }
 
     var listText = document.createTextNode(list[i]);
     listNode.appendChild(listText);
-    listNode.addEventListener('mouseenter', displayCloseButton);
-    listNode.addEventListener('mouseleave', displayCloseButton);
 
     // then create the node that will act as the x button
     var closeNode = document.createElement('span');
@@ -80,7 +83,7 @@ function addToDoItem(event) {
 
   if (event.keyCode == 13 && text != "") {
     list.push(text);
-    displayList();
+    displayList(false);
     add.value = "";
   }
 
@@ -104,9 +107,8 @@ function removeToDoItem(event) {
     list.splice(index, 1);
   }
 
+  displayList(false);
   save();
-  load();
-  displayList();
 }
 
 function findParentElem(elem) {
@@ -123,13 +125,6 @@ function findParentElem(elem) {
     return elem;
   }
 }
-
-// displays the close 'x' on hover
-function displayCloseButton(event) {
-  var closeBtn = event.target.getElementsByTagName('span')[0];
-  closeBtn.classList.toggle('visible');
-}
-
 
 // old code!!!!!!!!
 
