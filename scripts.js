@@ -3,8 +3,6 @@ var list;
 var listElem;
 var addField;
 
-
-
 window.onload = function () {
   init();
 }
@@ -52,15 +50,15 @@ function displayList() {
     var listNode = document.createElement('li');
     var listText = document.createTextNode(list[i]);
     listNode.appendChild(listText);
+    listNode.addEventListener('mouseenter', displayCloseButton);
+    listNode.addEventListener('mouseleave', displayCloseButton);
 
     // then create the node that will act as the x button
     var closeNode = document.createElement('span');
-    var xNode = document.createElement('div');
-    closeNode.appendChild(xNode);
-    closeNode.appendChild(xNode);
+    closeNode.appendChild(document.createElement('div'));
+    closeNode.appendChild(document.createElement('div'));
 
     // add the close event listener to the x node
-    closeNode.addEventListener('mouseover', displayCloseButton)
     closeNode.addEventListener('click', removeToDoItem);
 
     listNode.appendChild(closeNode);
@@ -74,7 +72,6 @@ function displayList() {
 function addToDoItem(event) {
   var text = add.value;
 
-
   if (event.keyCode == 13 && text != "") {
     list.push(text);
     displayList();
@@ -84,14 +81,29 @@ function addToDoItem(event) {
   save();
 }
 
-// remove elements from the list
-function removeToDoItem() {
+console.log("13 % 13 " + 13 % 13);
+console.log("0 % 13 " + 0 % 13);
+console.log("1 % 13 " + 1 % 13);
+console.log("12 % 13 " + 12 % 13);
 
+// remove elements from the list
+function removeToDoItem(event) {
+  var value = event.target.innerText;
+  var index = list.indexOf(value);
+
+  if (index > -1) {
+    array.splice(index, 1);
+  }
+
+  save();
+  load();
+  displayList();
 }
 
 // displays the close 'x' on hover
 function displayCloseButton(event) {
-  console.log(event.target);
+  var closeBtn = event.target.getElementsByTagName('span')[0];
+  closeBtn.classList.toggle('visible');
 }
 
 

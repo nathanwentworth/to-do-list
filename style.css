@@ -1,7 +1,7 @@
 body, html {
   margin: 0;
   padding: 0;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: 'monaco', monospace;
   font-size: 16px;
   line-height: 140%;
   background: #fff;
@@ -57,6 +57,11 @@ input[type=text]:focus {
 li button {
   display: none;
 }
+
+.visible {
+  visibility: visible;
+}
+
 span {
   display: inline-block;
   width: 10px;
