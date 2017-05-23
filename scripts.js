@@ -24,6 +24,8 @@ function load() {
   } else {
     list = JSON.parse(list);
   }
+
+  console.log('list loaded!');
   console.log(list);
 }
 
@@ -35,6 +37,7 @@ function deleteAll() {
 // save localstorage data
 function save() {
   localStorage.setItem('list', JSON.stringify(list));
+  console.log('list saved!');
 }
 
 // write list
@@ -48,6 +51,8 @@ function displayList() {
   for (var i = 0; i < list.length; i++) {
     // create the initial list node, top level parent
     var listNode = document.createElement('li');
+    listNode.style.animationDelay = 0.1 * i + "s";
+
     var listText = document.createTextNode(list[i]);
     listNode.appendChild(listText);
     listNode.addEventListener('mouseenter', displayCloseButton);
